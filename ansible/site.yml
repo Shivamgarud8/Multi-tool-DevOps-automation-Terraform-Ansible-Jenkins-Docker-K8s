@@ -1,0 +1,60 @@
+- name: Prepare all Kubernetes nodes
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install dependencies
+      apt:
+        name:
+          - git
+          - curl
+          - apt-transport-https
+          - ca-certificates
+          - software-properties-common
+        state: present
+
+    - name: Clone k8s setup repo
+      git:
+        repo: https://github.com/Shivamgarud8/k8s-setup.git
+        dest: /opt/k8s-setup
+        force: yes
+
+    - name: Make all scripts executable
+      file:
+        path: /opt/k8s-setup
+        recurse: yes
+        mode: '0755'
+
+- name: Setup Kubernetes Master
+  hosts: k8s-master
+  become: yes
+  tasks:
+    - name: Execute k8s-master.sh
+      shell: |
+        cd /opt/k8s-setup
+        ./k8s-master.sh
+      register: master_setup
+
+    - name: Save kubeadm join command
+      shell: kubeadm token create --print-join-command
+      register: join_cmd
+
+    - name: Set join command fact
+      set_fact:
+        kube_join_cmd: "{{ join_cmd.stdout }}"
+
+- name: Setup Kubernetes Worker
+  hosts: k8s-worker
+  become: yes
+  tasks:
+    - name: Execute k8s-slave.sh
+      shell: |
+        cd /opt/k8s-setup
+        ./k8s-slave.sh
+
+    - name: Join worker to master automatically
+      shell: "{{ hostvars['k8s-master'].kube_join_cmd }}"
+      become: yes

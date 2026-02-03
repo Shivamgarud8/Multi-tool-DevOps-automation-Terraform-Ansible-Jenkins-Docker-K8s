@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-bulkmail
+  labels:
+    app: mymail
+spec:
+  containers:
+    - name: mail-cont
+      image: shiya18072011/mail
+      ports:
+        - containerPort: 5000
