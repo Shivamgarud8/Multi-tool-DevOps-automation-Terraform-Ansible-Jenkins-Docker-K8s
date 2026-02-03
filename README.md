@@ -152,9 +152,10 @@ Key features:
 
 | Feature | Link/Value |
 | :--- | :--- |
-| **Portfolio** | [shivam-garud.vercel.app](https://shivam-garud.vercel.app/) |
 | **App Endpoint** | `http://<WORKER_IP>:31564` |
 | **Status** | ![Ready](https://img.shields.io/badge/Status-Live-brightgreen) |
+
+
 
 </div>
 
