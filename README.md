@@ -24,7 +24,7 @@ Key features:
 - NodePort allows external access to your app at a **fixed port 31564**.  
 
 ---
-  
+ ![Web-Page](images/work.png) 
 ### ✅ Workflow Summary:
 
 1. **Jenkins** orchestrates the whole CI/CD pipeline.  
@@ -45,7 +45,17 @@ Key features:
 | **Kubernetes**      | Orchestrate pods & services                  |
 | **Jenkins**         | Automate CI/CD deployment pipeline           |
 | **NodePort**        | Expose web app externally via worker IP      |
+### 🛠 Languages and Tools:
 
+<p left>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" alt="git" width="40" height="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" alt="jenkins" width="40" height="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" alt="terraform" width="40" height="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ansible/ansible-original.svg" alt="ansible" width="40" height="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" alt="kubernetes" width="40" height="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" alt="docker" width="40" height="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/>
+</p>
 ---
 
 ## 🔐 Security Group Rules
@@ -60,7 +70,7 @@ Your EC2 instances use the following **Security Group inbound rules**:
 | sgr-082f0005565639beb | Custom TCP | TCP      | 5000             | 0.0.0.0/0   |
 
 > ⚠️ Rules with source `0.0.0.0/0` allow access from any IP. For production, restrict to trusted IPs only.  
-
+![jenkins](images/1.png)
 ---
 
 ## 📦 Kubernetes Setup
@@ -69,11 +79,11 @@ Your EC2 instances use the following **Security Group inbound rules**:
 - **Pod Deployment:** YAML manifests for web apps (`node-pod.yml`, `pod.yml`).  
 - **NodePort Service:** Fixed port **31564** exposes app externally.  
 
----
+-![jenkins](images/2.png)--
 
 ## 🌐 Access Your App
 Once deployed, access your web app using:
-
+![jenkins](images/aws.png)
 http://<WORKER_NODE_IP>:31564
 
 
@@ -94,7 +104,7 @@ Example (for this pipeline run):
 
 http://<WORKER_NODE_IP>:31564
 
-
+![jenkins](images/2.png)
 ## 🗂️ Project Folder Structure
 
 ```plaintext
