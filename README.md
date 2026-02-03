@@ -17,6 +17,21 @@ Key features:
 - NodePort allows external access to your app at a **fixed port 31564**.  
 
 ---
+  
+### ✅ Workflow Summary:
+
+1. **Jenkins** orchestrates the whole CI/CD pipeline.  
+2. **Terraform** provisions the infrastructure (EC2 master + worker nodes).  
+3. **Scripts (Ansible optional)** configure Master and Worker (kubeadm init & join).  
+4. **Kubernetes cluster** is formed, and pods/services are deployed.  
+5. **NodePort** exposes your app on a fixed port (`31564`) for external access.  
+6. Jenkins prints a **final success message with URL** to access the app.  
+
+---
+
+If you want, I can **also make a super-visual ASCII diagram with arrows and boxes**, so it looks **like a flowchart directly in Markdown**, making it ultra-readable for your README.  
+
+Do you want me to do that next?
 
 ## 🛠️ Tech Stack & Tools
 
@@ -37,11 +52,8 @@ Your EC2 instances use the following **Security Group inbound rules**:
 | Rule ID             | Type       | Protocol | Port Range       | Source      |
 | ------------------ | ---------- | -------- | ---------------- | ----------- |
 | sgr-0da334608206b0fe | Custom TCP | TCP      | 8080             | 0.0.0.0/0   |
-| sgr-09cedc742e98fb6fe | Custom TCP | TCP      | 6443             | 0.0.0.0/0   |
 | sgr-09e3e2bc5941b88e4 | SSH        | TCP      | 22               | 0.0.0.0/0   |
 | sgr-0dcf2a037b3a1cf98 | Custom TCP | TCP      | 30000 - 32786    | 0.0.0.0/0   |
-| sgr-0c957a9e00d1d81ea | Custom TCP | TCP      | 5173             | 0.0.0.0/0   |
-| sgr-0f095228ea5717391 | Custom TCP | TCP      | 10250            | 0.0.0.0/0   |
 | sgr-0f10b62b784e9c21c | HTTP       | TCP      | 80               | 0.0.0.0/0   |
 | sgr-082f0005565639beb | Custom TCP | TCP      | 5000             | 0.0.0.0/0   |
 
