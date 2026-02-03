@@ -1,0 +1,157 @@
+pipeline {
+    agent any
+
+    environment {
+        BASE_DIR   = "/var/lib/jenkins/multi-k8s-devops-project"
+        TF_DIR     = "${BASE_DIR}/terraform"
+        SCR_DIR    = "${BASE_DIR}/scripts"
+        K8S_DIR    = "${BASE_DIR}/k8s"
+        SSH_KEY    = "${BASE_DIR}/terraform.pem"
+        USER       = "ubuntu"
+        MAX_RETRIES = 12
+        SLEEP_SEC   = 5
+    }
+
+    stages {
+
+        stage('Terraform Init & Apply') {
+            steps {
+                dir("${TF_DIR}") {
+                    sh "terraform init"
+                    sh "terraform apply -auto-approve"
+                }
+            }
+        }
+
+        stage('Prepare Scripts') {
+            steps {
+                dir("${SCR_DIR}") {
+                    sh """
+                        if [ -d .git ]; then
+                            git fetch --all
+                            git reset --hard origin/main
+                            git clean -fd
+                        else
+                            git clone https://github.com/Shivamgarud8/k8s-setup.git .
+                        fi
+                        chmod +x *.sh
+                    """
+                }
+            }
+        }
+
+        stage('Get Node IPs') {
+            steps {
+                script {
+                    env.MASTER_IP = sh(script: "terraform -chdir=${TF_DIR} output -raw master_ip", returnStdout: true).trim()
+                    env.WORKER_IP = sh(script: "terraform -chdir=${TF_DIR} output -raw worker_ip", returnStdout: true).trim()
+                    echo "Master IP: ${env.MASTER_IP}, Worker IP: ${env.WORKER_IP}"
+                }
+            }
+        }
+
+        stage('Wait for SSH Master') {
+            steps {
+                script {
+                    echo "Waiting for SSH on Master..."
+                    retry(MAX_RETRIES) {
+                        sh "nc -z -w 5 ${env.MASTER_IP} 22 || exit 1"
+                    }
+                }
+            }
+        }
+
+        stage('Wait for SSH Worker') {
+            steps {
+                script {
+                    echo "Waiting for SSH on Worker..."
+                    retry(MAX_RETRIES) {
+                        sh "nc -z -w 5 ${env.WORKER_IP} 22 || exit 1"
+                    }
+                }
+            }
+        }
+
+        stage('Setup Master Node') {
+            steps {
+                script {
+                    sh """
+                        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${SCR_DIR}/k8s-master.sh ${USER}@${MASTER_IP}:/home/${USER}/
+                        ssh -tt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${USER}@${MASTER_IP} "sudo bash /home/${USER}/k8s-master.sh"
+                    """
+                }
+            }
+        }
+
+        stage('Setup Worker Node') {
+            steps {
+                script {
+                    sh """
+                        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${SCR_DIR}/k8s-slave.sh ${USER}@${WORKER_IP}:/home/${USER}/
+                        ssh -tt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${USER}@${WORKER_IP} "sudo bash /home/${USER}/k8s-slave.sh"
+                    """
+                }
+            }
+        }
+
+        stage('Join Worker to Master') {
+            steps {
+                script {
+                    echo "Joining Worker to Master..."
+                    def joinCmd = sh(
+                        script: "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${USER}@${MASTER_IP} sudo kubeadm token create --print-join-command",
+                        returnStdout: true
+                    ).trim()
+
+                    sh """
+                        ssh -tt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${USER}@${WORKER_IP} "sudo -i ${joinCmd}"
+                    """
+                }
+            }
+        }
+
+        stage('Deploy K8s Workloads') {
+            steps {
+                script {
+                    echo "Deploying workloads..."
+                    sh """
+                        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${K8S_DIR}/*.yml ${USER}@${MASTER_IP}:/home/${USER}/
+                        ssh -tt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${USER}@${MASTER_IP} '
+                            sudo KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f /home/${USER}/ --validate=false
+                        '
+                    """
+                }
+            }
+        }
+
+        stage('Wait & Show NodePort') {
+            steps {
+                script {
+                    echo "Waiting for NodePort services to be ready..."
+                    // Wait until service is available
+                    sh """
+                        ssh -tt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${USER}@${MASTER_IP} '
+                            sudo KUBECONFIG=/etc/kubernetes/admin.conf kubectl wait --for=condition=available --timeout=120s deployment --all || true
+                        '
+                    """
+
+                    echo "Fetching NodePort info..."
+                    def nodePort = sh(
+                        script: """
+                            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${SSH_KEY} ${USER}@${MASTER_IP} \\
+                            "sudo KUBECONFIG=/etc/kubernetes/admin.conf kubectl get svc my-bulkmail -o jsonpath='{.spec.ports[0].nodePort}'"
+                        """,
+                        returnStdout: true
+                    ).trim()
+
+                    echo "✅ CI/CD SUCCESS: ACCESS YOUR APP AT http://${env.WORKER_IP}:${nodePort}"
+                }
+            }
+        }
+    }
+
+    post {
+        success { echo "✅ KUBERNETES CLUSTER DEPLOYED SUCCESSFULLY" }
+        failure { echo "❌ PIPELINE FAILED – CHECK LOGS" }
+    }
+}
