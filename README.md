@@ -47,15 +47,54 @@ Key features:
 | **NodePort**        | Expose web app externally via worker IP      |
 ### 🛠 Languages and Tools:
 
-<p left>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" alt="git" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" alt="jenkins" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" alt="terraform" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ansible/ansible-original.svg" alt="ansible" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" alt="kubernetes" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" alt="docker" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/>
-</p>
+### 🏗️ Project Workflow Pipeline
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" width="50" height="50"/><br />
+      <sub><b>Git Push</b></sub>
+    </td>
+    <td align="center">➡️<br /><sup>Trigger</sup></td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" width="50" height="50"/><br />
+      <sub><b>Jenkins CI</b></sub>
+    </td>
+    <td align="center">➡️<br /><sup>Provision</sup></td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" width="50" height="50"/><br />
+      <sub><b>Terraform</b></sub><br />
+      <small>Server Maker</small>
+    </td>
+    <td align="center">➡️<br /><sup>Inventory</sup></td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ansible/ansible-original.svg" width="50" height="50"/><br />
+      <sub><b>Ansible</b></sub><br />
+      <small>Config Nodes</small>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="50" height="50"/><br />
+      <sub><b>Python Scripts</b></sub>
+    </td>
+    <td align="center">➡️<br /><sup>Build</sup></td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" width="50" height="50"/><br />
+      <sub><b>Docker</b></sub><br />
+      <small>Containerize</small>
+    </td>
+    <td align="center">➡️<br /><sup>Deploy</sup></td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" width="50" height="50"/><br />
+      <sub><b>Kubernetes</b></sub><br />
+      <small>Master/Worker</small>
+    </td>
+  </tr>
+</table>
 ---
 
 ## 🔐 Security Group Rules
@@ -79,7 +118,6 @@ Your EC2 instances use the following **Security Group inbound rules**:
 - **Pod Deployment:** YAML manifests for web apps (`node-pod.yml`, `pod.yml`).  
 - **NodePort Service:** Fixed port **31564** exposes app externally.  
 
--![jenkins](images/2.png)--
 
 ## 🌐 Access Your App
 Once deployed, access your web app using:
