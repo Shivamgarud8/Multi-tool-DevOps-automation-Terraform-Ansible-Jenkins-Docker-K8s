@@ -4,6 +4,13 @@
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-blue?logo=kubernetes)
 ![Docker](https://img.shields.io/badge/Docker-lightblue?logo=docker)
 ![CI/CD](https://img.shields.io/badge/CI/CD-Yes-green)
+![Terraform](https://img.shields.io/badge/Terraform-blue?logo=terraform)
+![Ansible](https://img.shields.io/badge/Ansible-red?logo=ansible)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-red?logo=jenkins)
+![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
+![K8s Master](https://img.shields.io/badge/K8s_Master-0052CC?logo=kubernetes&logoColor=white)
+![K8s Worker](https://img.shields.io/badge/K8s_Worker-0066CC?logo=kubernetes&logoColor=white)
 
 ---
 
