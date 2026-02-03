@@ -28,11 +28,6 @@ Key features:
 6. Jenkins prints a **final success message with URL** to access the app.  
 
 ---
-
-If you want, I can **also make a super-visual ASCII diagram with arrows and boxes**, so it looks **like a flowchart directly in Markdown**, making it ultra-readable for your README.  
-
-Do you want me to do that next?
-
 ## 🛠️ Tech Stack & Tools
 
 | Tool / Service       | Purpose                                      |
