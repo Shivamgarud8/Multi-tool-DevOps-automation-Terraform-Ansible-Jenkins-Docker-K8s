@@ -45,57 +45,74 @@ Key features:
 | **Kubernetes**      | Orchestrate pods & services                  |
 | **Jenkins**         | Automate CI/CD deployment pipeline           |
 | **NodePort**        | Expose web app externally via worker IP      |
-### 🛠 Languages and Tools:
+# 🚀 Multi-K8s DevOps Pipeline Workflow
 
-### 🏗️ Project Workflow Pipeline
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" width="60" height="60" alt="jenkins"/>
+  <br />
+  <b>Jenkins CI/CD Pipeline Triggered</b>
+</p>
 
-<table>
+<p align="center"> 🔽 </p>
+
+<table align="center">
   <tr>
-    <td align="center">
-      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" width="50" height="50"/><br />
-      <sub><b>Git Push</b></sub>
+    <td align="center" width="200">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" width="40" height="40"/><br/>
+      <b>Infrastructure Build</b><br/>
+      <code>terraform apply</code>
     </td>
-    <td align="center">➡️<br /><sup>Trigger</sup></td>
-    <td align="center">
-      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" width="50" height="50"/><br />
-      <sub><b>Jenkins CI</b></sub>
+    <td align="center">➡️</td>
+    <td align="center" width="200">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ansible/ansible-original.svg" width="40" height="40"/><br/>
+      <b>Config Management</b><br/>
+      <code>Wait for SSH</code>
     </td>
-    <td align="center">➡️<br /><sup>Provision</sup></td>
-    <td align="center">
-      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" width="50" height="50"/><br />
-      <sub><b>Terraform</b></sub><br />
-      <small>Server Maker</small>
-    </td>
-    <td align="center">➡️<br /><sup>Inventory</sup></td>
-    <td align="center">
-      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ansible/ansible-original.svg" width="50" height="50"/><br />
-      <sub><b>Ansible</b></sub><br />
-      <small>Config Nodes</small>
+    <td align="center">➡️</td>
+    <td align="center" width="200">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" width="40" height="40"/><br/>
+      <b>Cluster Init</b><br/>
+      <code>kubeadm init</code>
     </td>
   </tr>
 </table>
 
-<table>
+<p align="center"> 🔽 </p>
+
+### 🛠️ Nodes Provisioning & Script Execution
+
+| Step | Action | Command/Script |
+| :--- | :--- | :--- |
+| **01** | **Prepare Repository** | `git clone` + `chmod +x *.sh` |
+| **02** | **Setup Master Node** | `bash k8s-master.sh` |
+| **03** | **Setup Worker Node** | `bash k8s-slave.sh` |
+| **04** | **Cluster Networking** | `kubeadm join` (Token Auth) |
+| **05** | **Deploy Workloads** | `kubectl apply -f pod.yml` |
+
+<p align="center"> 🔽 </p>
+
+### 🌐 Final Architecture & Access
+
+<table align="center">
   <tr>
-    <td align="center">
-      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="50" height="50"/><br />
-      <sub><b>Python Scripts</b></sub>
+    <td align="center" bgcolor="#232f3e">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" width="30" height="30"/><br/>
+      <font color="#ffa500"><b>Pod Running</b></font>
     </td>
-    <td align="center">➡️<br /><sup>Build</sup></td>
-    <td align="center">
-      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" width="50" height="50"/><br />
-      <sub><b>Docker</b></sub><br />
-      <small>Containerize</small>
-    </td>
-    <td align="center">➡️<br /><sup>Deploy</sup></td>
-    <td align="center">
-      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" width="50" height="50"/><br />
-      <sub><b>Kubernetes</b></sub><br />
-      <small>Master/Worker</small>
+    <td align="center"> ⚡ <b>NodePort: 31564</b> ⚡ </td>
+    <td align="center" bgcolor="#232f3e">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="30" height="30"/><br/>
+      <font color="#ffa500"><b>App Ready</b></font>
     </td>
   </tr>
 </table>
+
 ---
+
+### 🎉 Project Status: SUCCESS
+> **Shivam Garud Project** is running very well!
+> - **Portfolio:** [shivam-garud.vercel.app](https://shivam-garud.vercel.app/)
+> - **Live App Access:** `http://<WORKER_IP>:31564`
 
 ## 🔐 Security Group Rules
 Your EC2 instances use the following **Security Group inbound rules**:
