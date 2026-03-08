@@ -10,7 +10,7 @@
 ![Jenkins](https://img.shields.io/badge/Jenkins-red?logo=jenkins)
 ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
 ![K8s Master](https://img.shields.io/badge/K8s_Master-0052CC?logo=kubernetes&logoColor=white)
-![K8s Worker](https://img.shields.io/badge/K8s_Worker-0066CC?logo=kubernetes&logoColor=white)
+![K8s Worker](https://img.shields.io/badge/K8s_Worker-0066CC?logo=kubernetes&logoColor=white).
 
 ---
 
@@ -18,7 +18,7 @@
 This project demonstrates **automated CI/CD deployment** of a web application using **Terraform, Ansible, Docker, Jenkins, and Kubernetes**.  
 
 Key features:  
-- Terraform provisions **EC2 instances** for master and worker nodes.  
+- Terraform provisions **EC2 instanc.es** for master and worker nodes.  
 - Ansible & Shell scripts configure **Docker and Kubernetes**.  
 - Jenkins pipeline automates **cluster setup, pod deployment, and NodePort exposure**.  
 - NodePort allows external access to your app at a **fixed port 31564**.  
