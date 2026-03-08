@@ -10,7 +10,7 @@
 ![Jenkins](https://img.shields.io/badge/Jenkins-red?logo=jenkins)
 ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
 ![K8s Master](https://img.shields.io/badge/K8s_Master-0052CC?logo=kubernetes&logoColor=white)
-![K8s Worker](https://img.shields.io/badge/K8s_Worker-0066CC?logo=kubernetes&logoColor=white).
+![K8s Worker](https://img.shields.io/badge/K8s_Worker-0066CC?logo=kubernetes&logoColor=white)
 
 ---
 
