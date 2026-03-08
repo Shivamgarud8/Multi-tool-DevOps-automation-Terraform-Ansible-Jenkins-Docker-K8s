@@ -48,7 +48,7 @@ Key features:
 <div align="center">
 
 # 🚀 Multi-K8s DevOps Project Workflow
-### Engineered by Shivam Garud
+### Engineered by Shivam Garud.
 
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-blue?logo=kubernetes&style=for-the-badge)](https://kubernetes.io/)
 [![Jenkins](https://img.shields.io/badge/Jenkins-red?logo=jenkins&style=for-the-badge)](https://www.jenkins.io/)
