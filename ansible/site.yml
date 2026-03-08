@@ -1,6 +1,6 @@
 - name: Prepare all Kubernetes nodes
   hosts: all
-  become: yes..
+  become: yes
   tasks:
     - name: Update apt cache
       apt:
